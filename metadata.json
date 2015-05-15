@@ -1,0 +1,19 @@
+{
+  "name": "treydock-foreman_networking",
+  "version": "0.0.1",
+  "author": "treydock",
+  "summary": "Foreman networking module",
+  "license": "Apache-2.0",
+  "source": "git://github.com/treydock/puppet-foreman_networking.git",
+  "description": "Foreman networking module",
+  "issues_url": "https://github.com/treydock/puppet-foreman_networking/issues",
+  "project_page": "http://github.com/treydock/puppet-foreman_networking",
+  "tags": [ "foreman", "networking" ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [ "6" ]
+    }
+  ],
+  "dependencies": []
+}

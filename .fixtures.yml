@@ -1,0 +1,6 @@
+fixtures:
+  repositories:
+    stdlib: https://github.com/puppetlabs/puppetlabs-stdlib
+    network: https://github.com/razorsedge/puppet-network
+  symlinks:
+    foreman_networking: "#{source_dir}"
