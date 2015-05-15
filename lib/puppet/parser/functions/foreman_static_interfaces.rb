@@ -51,25 +51,20 @@ module Puppet::Parser::Functions
       raise Puppet::ParseError, "foreman_static_interfaces(): unexpected argument type #{optional_values.class}, optional values argument must be an array"
     end
 
-    # Function to turn a string into hash lookup
-    def hash_lookup(hash, key)
-      key.to_s.split('.').inject(hash) { |h,k| h[k] }
-    end
-
     data = self.lookupvar('foreman_interfaces')
-    return {} if data.nil?
+    return {} if data.nil? || data == :undef || data == :undefined
 
     interfaces = {}
     data.each do |d|
       # Only deal with Interface types
-      next unless hash_lookup(d, interface_type_key) == 'Interface'
+      next unless function_hash_lookup([d, interface_type_key]) == 'Interface'
       # Only deal with managed interfaces
       if managed_only.to_s == 'true'
-        next unless hash_lookup(d, 'managed').to_s == 'true'
+        next unless function_hash_lookup([d, 'managed']).to_s == 'true'
       end
       # If a subnet match was defined, skip if subnet name does not match
       unless subnet_match.empty?
-        subnet_name = hash_lookup(d, subnet_match_key)
+        subnet_name = function_hash_lookup([d, subnet_match_key])
         next unless subnet_name == subnet_match
       end
       interface = {}
@@ -78,13 +73,13 @@ module Puppet::Parser::Functions
         # Get value based on value map hash
         if map.is_a?(Array)
           map.each do |m|
-            value = hash_lookup(d, m)
+            value = function_hash_lookup([d, m])
             unless value.nil? or value.empty?
               break
             end
           end
         else
-          value = hash_lookup(d, map)
+          value = function_hash_lookup([d, map])
         end
         # Handle optional values which may not be present
         if optional_values.include?(key)
@@ -94,7 +89,7 @@ module Puppet::Parser::Functions
         end
         interface[key] = value
       end
-      title = hash_lookup(d, value_map['title'])
+      title = function_hash_lookup([d, value_map['title']])
       interfaces[title] = interface
     end
 
