@@ -69,6 +69,7 @@ module Puppet::Parser::Functions
       end
       interface = {}
       value_map.each_pair do |key, map|
+        value = nil
         next if key == 'title'
         # Get value based on value map hash
         if map.is_a?(Array)

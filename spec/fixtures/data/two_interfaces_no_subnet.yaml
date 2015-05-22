@@ -1,0 +1,39 @@
+---
+  foreman_interfaces:
+  - mac: 00:00:00:00:00:00
+    ip: 10.0.0.1
+    type: Interface
+    name: 
+    attrs:
+      mtu: '1500'
+      network: 10.0.0.0
+      netmask: 255.255.255.0
+    virtual: false
+    link: true
+    identifier: eth0
+    managed: true
+    subnet:
+      network: 10.0.0.0
+      mask: 255.255.255.0
+      name: Private
+      vlanid: ''
+      gateway: 10.0.0.254
+      dns_primary: 10.0.0.254
+      dns_secondary: 
+      from: ''
+      to: ''
+      boot_mode: DHCP
+      ipam: DHCP
+  - mac: 00:00:00:00:00:01
+    ip: 10.0.20.1
+    type: Interface
+    name: 
+    attrs:
+      mtu: '1500'
+      network: 10.0.20.0
+      netmask: 255.255.255.0
+    virtual: false
+    link: true
+    identifier: eth1
+    managed: true
+    subnet:
