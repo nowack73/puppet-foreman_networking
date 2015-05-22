@@ -28,4 +28,12 @@ describe 'the hash_lookup function' do
   it 'should return value for nested lookup' do
     expect(scope.function_hash_lookup([hash, 'nested-foo.test'])).to eq('baz')
   end
+
+  it 'should handle no value' do
+    expect(scope.function_hash_lookup([hash, 'foo1'])).to be_nil
+  end
+
+  it 'should handle no value for nested lookup' do
+    expect(scope.function_hash_lookup([hash, 'nested-bar.test'])).to be_nil
+  end
 end

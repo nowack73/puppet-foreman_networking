@@ -19,8 +19,12 @@ module Puppet::Parser::Functions
       raise Puppet::ParseError, "hash_lookup(): unexpected argument type #{key.class}, second argument must be a string"
     end
 
-    value = key.to_s.split('.').inject(hash) { |h,k| h[k] }
-    value
+    lookup = key.to_s.split('.')
+    value = lookup.inject(hash) do |h,k|
+      h ||= {}
+      h[k]
+    end
 
+    value
   end
 end

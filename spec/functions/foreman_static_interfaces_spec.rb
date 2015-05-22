@@ -58,4 +58,28 @@ describe 'the foreman_static_interfaces function' do
       expect(scope.function_foreman_static_interfaces(['Private']).keys.size).to eq(1)
     end
   end
+
+  context 'when foreman_interfaces does not contain subnet' do
+    let(:foreman_interfaces) { fixture_data('two_interfaces_no_subnet.yaml')['foreman_interfaces'] }
+    before(:each) do
+      scope.stubs(:lookupvar).with('foreman_interfaces').returns(foreman_interfaces)
+    end
+
+    it 'should return hash' do
+      expect(scope.function_foreman_static_interfaces([])).to be_a(Hash)
+    end
+
+    it 'should set interface titles' do
+      expected_titles = foreman_interfaces.map { |h| h['identifier'] }.sort
+      expect(scope.function_foreman_static_interfaces([]).keys.sort).to eq(expected_titles)
+    end
+
+    it 'should return two interfaces' do
+      expect(scope.function_foreman_static_interfaces([]).keys.size).to eq(2)
+    end
+
+    it 'should return only matching interface' do
+      expect(scope.function_foreman_static_interfaces(['Private']).keys.size).to eq(1)
+    end
+  end
 end
