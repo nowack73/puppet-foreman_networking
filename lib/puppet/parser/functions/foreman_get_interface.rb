@@ -57,7 +57,7 @@ module Puppet::Parser::Functions
         if map.is_a?(Array)
           map.each do |m|
             value = function_hash_lookup([d, m])
-            unless value.nil? or value.empty?
+            unless value.nil? or value == ''
               break
             end
           end

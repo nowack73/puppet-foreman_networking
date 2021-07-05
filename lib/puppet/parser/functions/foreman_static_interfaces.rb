@@ -63,7 +63,7 @@ module Puppet::Parser::Functions
         next unless function_hash_lookup([d, 'managed']).to_s == 'true'
       end
       # If a subnet match was defined, skip if subnet name does not match
-      unless subnet_match.empty?
+      unless subnet_match == ''
         subnet_name = function_hash_lookup([d, subnet_match_key])
         next unless subnet_name == subnet_match
       end
@@ -75,7 +75,7 @@ module Puppet::Parser::Functions
         if map.is_a?(Array)
           map.each do |m|
             value = function_hash_lookup([d, m])
-            unless value.nil? or value.empty?
+            unless value.nil? or value == ''
               break
             end
           end
@@ -84,7 +84,7 @@ module Puppet::Parser::Functions
         end
         # Handle optional values which may not be present
         if optional_values.include?(key)
-          if value.nil? or value.empty?
+          if value.nil? or value = ''
             next
           end
         end
