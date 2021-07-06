@@ -84,7 +84,7 @@ module Puppet::Parser::Functions
         end
         # Handle optional values which may not be present
         if optional_values.include?(key)
-          if value.nil? or value = ''
+          if value.nil? or value == ''
             next
           end
         end
